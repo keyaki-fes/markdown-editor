@@ -30,6 +30,11 @@ textarea {
   }
 }
 
+::selection {
+  background: rgb(147 197 253);
+  color: black;
+}
+
 @import "~tailwindcss/base";
 @import "~tailwindcss/components";
 @import "~tailwindcss/utilities";
