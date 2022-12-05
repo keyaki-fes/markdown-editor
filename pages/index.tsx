@@ -169,7 +169,7 @@ export default function Home() {
   }
 
   return (
-    <div className="md:px-8 px-4 bg-sky-100/50 w-screen h-screen flex flex-col">
+    <div className="md:px-8 px-4 bg-[#F1F2F6]  w-screen h-screen flex flex-col">
       <Head>
         <title>Keyaki Fes Markdown Editor</title>
         <meta
@@ -179,6 +179,7 @@ export default function Home() {
         <link rel="icon" href={url("/favicon.ico")} />
       </Head>
       <div className="flex-row flex py-3">
+        <img src={url("/icon.png")} className="w-10 h-10 mr-2" />
         <div>
           <div className="text-sm text-gray-900 font-medium leading-none">
             KEYAKI FES
@@ -236,15 +237,15 @@ export default function Home() {
           Download
         </button>
       </div>
-      <div className="lg:grid gap-6 grid-cols-2 flex-auto overflow-y-scroll py-4">
+      <div className="lg:grid gap-6 grid-cols-2 flex-auto overflow-y-scroll pt-4 pb-2">
         <div
           className={`${
             isPreview && width < 1024 ? "hidden" : ""
           } h-full w-full flex flex-col gap-2`}
         >
-          <div className="rounded-md w-full text-sm gap-2  py-2 px-6 flex flex-row bg-white shadow">
+          <div className="rounded-md w-full text-sm gap-2  py-2 px-6 flex flex-row bg-white">
             <div
-              className="hover:bg-blue-100 h-5 rounded w-5"
+              className="hover:bg-blue-300 p-0.5 h-6 w-6 rounded"
               onClick={() => {
                 addTag("bold");
               }}
@@ -252,7 +253,7 @@ export default function Home() {
               <img src={url("/format_bold_FILL0_wght400_GRAD0_opsz48.svg")} />
             </div>
             <div
-              className="hover:bg-blue-100 h-5 rounded w-5"
+              className="hover:bg-blue-300 p-0.5 h-6 w-6 rounded"
               onClick={() => {
                 addTag("italic");
               }}
@@ -260,7 +261,7 @@ export default function Home() {
               <img src={url("/format_italic_FILL0_wght400_GRAD0_opsz48.svg")} />
             </div>
             <div
-              className="hover:bg-blue-100 h-5 rounded w-5"
+              className="hover:bg-blue-300 p-0.5 h-6 w-6 rounded"
               onClick={() => {
                 addTag("inlinecode");
               }}
@@ -268,7 +269,7 @@ export default function Home() {
               <img src={url("/code_FILL0_wght400_GRAD0_opsz48.svg")} />
             </div>
             <div
-              className="hover:bg-blue-100 h-5 rounded w-5"
+              className="hover:bg-blue-300 p-0.5 h-6 w-6 rounded"
               onClick={() => {
                 addTag("codeblock");
               }}
@@ -276,7 +277,7 @@ export default function Home() {
               <img src={url("/code_blocks_FILL0_wght400_GRAD0_opsz48.svg")} />
             </div>
             <div
-              className="hover:bg-blue-100 h-5 rounded w-5"
+              className="hover:bg-blue-300 p-0.5 h-6 w-6 rounded"
               onClick={() => {
                 addTag("link");
               }}
@@ -284,7 +285,7 @@ export default function Home() {
               <img src={url("/link_FILL0_wght400_GRAD0_opsz48.svg")} />
             </div>
             <div
-              className="hover:bg-blue-100 h-5 rounded w-5"
+              className="hover:bg-blue-300 p-0.5 h-6 w-6 rounded"
               onClick={() => {
                 addTag("image");
               }}
@@ -292,7 +293,7 @@ export default function Home() {
               <img src={url("/image_FILL0_wght400_GRAD0_opsz48.svg")} />
             </div>
             <div
-              className="hover:bg-blue-100 h-5 rounded w-5"
+              className="hover:bg-blue-300 p-0.5 h-6 w-6 rounded"
               onClick={() => {
                 addTag("ul");
               }}
@@ -300,7 +301,7 @@ export default function Home() {
               <img src={url("/list_FILL0_wght400_GRAD0_opsz48.svg")} />
             </div>
             <div
-              className="hover:bg-blue-100 h-5 rounded w-5"
+              className="hover:bg-blue-300 p-0.5 h-6 w-6 rounded"
               onClick={() => {
                 addTag("ol");
               }}
@@ -312,7 +313,7 @@ export default function Home() {
               />
             </div>
             <div
-              className="hover:bg-blue-100 h-5 rounded w-5"
+              className="hover:bg-blue-300 p-0.5 h-6 w-6 rounded"
               onClick={() => {
                 addTag("backquote");
               }}
@@ -323,7 +324,7 @@ export default function Home() {
               onClick={() => {
                 resetText();
               }}
-              className=" h-5 w-5 rounded ml-auto hover:bg-slate-100/50 hover:text-slate-400 cursor-pointer"
+              className="p-0.5 h-6 w-6 rounded ml-auto hover:bg-blue-300 hover:text-slate-400 cursor-pointer"
             >
               <img src={url("/restart_alt_FILL0_wght400_GRAD0_opsz48.svg")} />
             </div>
@@ -331,13 +332,13 @@ export default function Home() {
               onClick={() => {
                 copyText();
               }}
-              className=" h-5 w-5 rounded hover:bg-slate-100/50 hover:text-slate-400 cursor-pointer text-sm"
+              className="p-0.5 h-6 w-6 rounded hover:bg-blue-300 hover:text-slate-400 cursor-pointer text-sm"
             >
               <img src={url("/file_copy_FILL0_wght400_GRAD0_opsz48.svg")} />
             </div>
           </div>
 
-          <div className="bg-white h-full w-full px-6 pt-4 pb-10 shadow-xl rounded-md">
+          <div className="bg-white h-full w-full px-6 pt-4 pb-10 bg-white rounded-md">
             <textarea
               id="body"
               spellCheck="false"
@@ -354,7 +355,7 @@ export default function Home() {
         <div
           className={`${
             !isPreview && width < 1024 ? "hidden" : ""
-          } overflow-y-scroll  overflow-x-scroll znc px-6 py-10 shadow-xl rounded-md h-full w-full bg-white text-gray-900`}
+          } overflow-y-scroll  overflow-x-scroll znc px-6 py-10  rounded-md h-full w-full bg-white  text-gray-900`}
         >
           <p
             dangerouslySetInnerHTML={{
@@ -362,6 +363,16 @@ export default function Home() {
             }}
           ></p>
         </div>
+      </div>
+      <div className="py-2 text-right hidden md:block text-xs">
+        Created by Koga Secondary School - The 7th Keyaki Fes IT management
+        dept. View source on{" "}
+        <a
+          href="https://github.com/keyaki-fes/markdown-editor"
+          className="text-blue-500 hover:text-blue-600 hover:underline"
+        >
+          Github
+        </a>
       </div>
     </div>
   );
