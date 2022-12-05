@@ -24,7 +24,7 @@ jobs:
       - name: Build
         run: yarn build
         env:
-          URL_PREFIX: cloud-forms-markdown-editor
+          URL_PREFIX: markdown-editor
 
       - name: Export
         run: yarn export

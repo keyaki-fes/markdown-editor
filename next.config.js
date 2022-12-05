@@ -5,11 +5,13 @@ const withPWA = require("next-pwa")({
   runtimeCaching,
 });
 
+const urlPrefix = process.env.URL_PREFIX ? "/" + process.env.URL_PREFIX : "";
+
 const nextConfig = withPWA({
   reactStrictMode: true,
   swcMinify: true,
-  basePath: process.env.GITHUB_PAGES && "/markdown-editor",
-  assetPrefix: process.env.GITHUB_PAGES && "/markdown-editor",
+  basePath: urlPrefix,
+  assetPrefix: urlPrefix,
   trailingSlash: true,
 });
 
