@@ -8,7 +8,7 @@ import { saveAs } from "file-saver";
 const useWindowSize = () => {
   const [size, setSize] = useState([0, 0]);
   useLayoutEffect(() => {
-    const updateSize = (): void => {
+    const updateSize = () => {
       setSize([window.innerWidth, window.innerHeight]);
     };
 
@@ -61,7 +61,7 @@ export default function Home() {
 
   async function download() {
     const blob = new Blob([contents.body], {
-      type: "application/octet-stream",
+      type: "text/markdown",
     });
     const title = `markdown${new Date().toLocaleDateString()}`;
     saveAs(blob, `${title}.md`);
