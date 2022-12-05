@@ -5,6 +5,25 @@ const MyDocument = () => {
   return (
     <Html lang="ja-JP">
       <Head>
+        <meta charSet="utf-8" />
+        <meta
+          name="description"
+          content="けやき祭IT管理部が開発したマークダウンエディタです"
+        />
+        <meta
+          property="og:image"
+          content="https://keyaki-fes.github.io/markdown-editor/og.png"
+        />
+        <meta property="og:title" content="Keyaki Fes Markdown Editor" />
+        <meta
+          property="og:description"
+          content="けやき祭IT管理部が開発したマークダウンエディタです"
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content="https://keyaki-fes.github.io/markdown-editor/"
+        />
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icon.png"></link>
         <meta name="theme-color" content="#EEF2F6" />

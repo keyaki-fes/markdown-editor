@@ -143,6 +143,7 @@ export default function Home() {
           </div>
           <textarea
             id="body"
+            spellCheck="false"
             className="overflow-y-scroll hidden-scrollbar h-full w-full resize-none focus:outline-none bg-white w-full h-full rounded-md text-gray-900"
             {...register("body")}
           ></textarea>
