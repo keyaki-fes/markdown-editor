@@ -24,9 +24,9 @@ export default function Home() {
   const [file, setFile] = useState<null | any>(null);
   const [isPreview, setIsPreview] = useState(false);
 
-  const onChangeFile = async (e) => {
+  const onChangeFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    if (files[0]) {
+    if (files != null && files[0]) {
       const file = files[0];
       const reader = new FileReader();
       reader.readAsText(file);
