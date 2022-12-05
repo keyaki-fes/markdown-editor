@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { useRouter } from "next/router";
+import { url } from "../utils/config";
 
 const MyDocument = () => {
   return (
@@ -24,8 +24,8 @@ const MyDocument = () => {
           property="og:url"
           content="https://keyaki-fes.github.io/markdown-editor/"
         />
-        <link rel="manifest" href="/manifest.json" />
-        <link rel="apple-touch-icon" href="/icon.png"></link>
+        <link rel="manifest" href={url("/manifest.json")} />
+        <link rel="apple-touch-icon" href={url("/icon.png")}></link>
         <meta name="theme-color" content="#EEF2F6" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />

@@ -13,6 +13,7 @@ const nextConfig = withPWA({
   basePath: urlPrefix,
   assetPrefix: urlPrefix,
   trailingSlash: true,
+  publicRuntimeConfig: { urlPrefix },
 });
 
 module.exports = nextConfig;

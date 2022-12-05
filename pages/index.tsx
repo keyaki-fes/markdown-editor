@@ -4,6 +4,7 @@ import markdownToHtml from "zenn-markdown-html";
 import "zenn-content-css";
 import { useEffect, useLayoutEffect, useState, useCallback } from "react";
 import { saveAs } from "file-saver";
+import { url } from "../utils/config";
 
 const useWindowSize = () => {
   const [size, setSize] = useState([0, 0]);
@@ -129,6 +130,11 @@ export default function Home() {
     }
 
     content.value = sentence;
+    content.focus();
+    content.setSelectionRange(
+      pos + word.length + (last - pos),
+      pos + word.length + (last - pos)
+    );
   }
 
   function resetText() {
@@ -170,9 +176,9 @@ export default function Home() {
           name="description"
           content="けやき祭IT管理部が開発したマークダウンエディタです"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href={url("/favicon.ico")} />
       </Head>
-      <div className="sm:flex py-3">
+      <div className="flex-row flex py-3">
         <div>
           <div className="text-sm text-gray-900 font-medium leading-none">
             KEYAKI FES
@@ -181,6 +187,36 @@ export default function Home() {
             Markdown Editor
           </div>
         </div>
+        <label className="hidden sm:block ml-auto bg-gray-200 hover:bg-gray-300 text-sm text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+          Upload
+          <input
+            type="file"
+            name="upload"
+            accept=".md"
+            onChange={onChangeFile}
+            className="hidden"
+          />
+        </label>
+        <button
+          onClick={() => {
+            download();
+          }}
+          className="hidden sm:block ml-2 bg-gray-200 hover:bg-gray-300 text-sm text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
+        >
+          Download
+        </button>
+        <button
+          onClick={() => {
+            setIsPreview(!isPreview);
+          }}
+          className={`${
+            width < 1024 ? "" : "hidden"
+          } ml-auto sm:ml-2 drop-shadow-[0_10px_10px_rgba(29,78,216,0.20)] w-24 text-sm font-semibold bg-blue-700 hover:bg-blue-800 text-slate-100 py-2 px-2 rounded items-center`}
+        >
+          {isPreview ? <>Edit</> : <>Preview</>}
+        </button>
+      </div>
+      <div className="flex sm:hidden">
         <label className="ml-auto bg-gray-200 hover:bg-gray-300 text-sm text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
           Upload
           <input
@@ -199,16 +235,6 @@ export default function Home() {
         >
           Download
         </button>
-        <button
-          onClick={() => {
-            setIsPreview(!isPreview);
-          }}
-          className={`${
-            width < 1024 ? "" : "hidden"
-          } ml-2 drop-shadow-[0_10px_10px_rgba(29,78,216,0.20)] w-24 text-sm font-semibold bg-blue-700 hover:bg-blue-800 text-slate-100 py-2 px-2 rounded items-center`}
-        >
-          {isPreview ? <>Edit</> : <>Preview</>}
-        </button>
       </div>
       <div className="lg:grid gap-6 grid-cols-2 flex-auto overflow-y-scroll py-4">
         <div
@@ -223,7 +249,7 @@ export default function Home() {
                 addTag("bold");
               }}
             >
-              <img src="/format_bold_FILL0_wght400_GRAD0_opsz48.svg" />
+              <img src={url("/format_bold_FILL0_wght400_GRAD0_opsz48.svg")} />
             </div>
             <div
               className="hover:bg-blue-100 h-5 rounded w-5"
@@ -231,7 +257,7 @@ export default function Home() {
                 addTag("italic");
               }}
             >
-              <img src="/format_italic_FILL0_wght400_GRAD0_opsz48.svg" />
+              <img src={url("/format_italic_FILL0_wght400_GRAD0_opsz48.svg")} />
             </div>
             <div
               className="hover:bg-blue-100 h-5 rounded w-5"
@@ -239,7 +265,7 @@ export default function Home() {
                 addTag("inlinecode");
               }}
             >
-              <img src="/code_FILL0_wght400_GRAD0_opsz48.svg" />
+              <img src={url("/code_FILL0_wght400_GRAD0_opsz48.svg")} />
             </div>
             <div
               className="hover:bg-blue-100 h-5 rounded w-5"
@@ -247,7 +273,7 @@ export default function Home() {
                 addTag("codeblock");
               }}
             >
-              <img src="/code_blocks_FILL0_wght400_GRAD0_opsz48.svg" />
+              <img src={url("/code_blocks_FILL0_wght400_GRAD0_opsz48.svg")} />
             </div>
             <div
               className="hover:bg-blue-100 h-5 rounded w-5"
@@ -255,7 +281,7 @@ export default function Home() {
                 addTag("link");
               }}
             >
-              <img src="/link_FILL0_wght400_GRAD0_opsz48.svg" />
+              <img src={url("/link_FILL0_wght400_GRAD0_opsz48.svg")} />
             </div>
             <div
               className="hover:bg-blue-100 h-5 rounded w-5"
@@ -263,7 +289,7 @@ export default function Home() {
                 addTag("image");
               }}
             >
-              <img src="/image_FILL0_wght400_GRAD0_opsz48.svg" />
+              <img src={url("/image_FILL0_wght400_GRAD0_opsz48.svg")} />
             </div>
             <div
               className="hover:bg-blue-100 h-5 rounded w-5"
@@ -271,7 +297,7 @@ export default function Home() {
                 addTag("ul");
               }}
             >
-              <img src="/list_FILL0_wght400_GRAD0_opsz48.svg" />
+              <img src={url("/list_FILL0_wght400_GRAD0_opsz48.svg")} />
             </div>
             <div
               className="hover:bg-blue-100 h-5 rounded w-5"
@@ -279,7 +305,11 @@ export default function Home() {
                 addTag("ol");
               }}
             >
-              <img src="/format_list_numbered_FILL0_wght400_GRAD0_opsz48.svg" />
+              <img
+                src={url(
+                  "/format_list_numbered_FILL0_wght400_GRAD0_opsz48.svg"
+                )}
+              />
             </div>
             <div
               className="hover:bg-blue-100 h-5 rounded w-5"
@@ -287,7 +317,7 @@ export default function Home() {
                 addTag("backquote");
               }}
             >
-              <img src="/format_quote_FILL0_wght400_GRAD0_opsz48.svg" />
+              <img src={url("/format_quote_FILL0_wght400_GRAD0_opsz48.svg")} />
             </div>
             <div
               onClick={() => {
@@ -295,7 +325,7 @@ export default function Home() {
               }}
               className=" h-5 w-5 rounded ml-auto hover:bg-slate-100/50 hover:text-slate-400 cursor-pointer"
             >
-              <img src="/restart_alt_FILL0_wght400_GRAD0_opsz48.svg" />
+              <img src={url("/restart_alt_FILL0_wght400_GRAD0_opsz48.svg")} />
             </div>
             <div
               onClick={() => {
@@ -303,7 +333,7 @@ export default function Home() {
               }}
               className=" h-5 w-5 rounded hover:bg-slate-100/50 hover:text-slate-400 cursor-pointer text-sm"
             >
-              <img src="/file_copy_FILL0_wght400_GRAD0_opsz48.svg" />
+              <img src={url("/file_copy_FILL0_wght400_GRAD0_opsz48.svg")} />
             </div>
           </div>
 
