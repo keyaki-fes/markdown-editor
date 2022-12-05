@@ -12,7 +12,7 @@ const MyDocument = () => {
         />
         <meta
           property="og:image"
-          content="https://keyaki-fes.github.io/markdown-editor/og.png"
+          content="https://keyaki-fes.github.io/markdown-editor/ogp.png"
         />
         <meta property="og:title" content="Keyaki Fes Markdown Editor" />
         <meta

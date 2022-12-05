@@ -8,8 +8,8 @@ const withPWA = require("next-pwa")({
 const nextConfig = withPWA({
   reactStrictMode: true,
   swcMinify: true,
-  assetPrefix: process.env.GITHUB_ACTIONS && "/markdown-editor",
-  basePath: process.env.GITHUB_ACTIONS && "/markdown-editor",
+  assetPrefix: process.env.GITHUB_PAGES && "/markdown-editor",
+  basePath: process.env.GITHUB_PAGES && "/markdown-editor",
   trailingSlash: true,
 });
 
