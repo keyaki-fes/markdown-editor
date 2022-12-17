@@ -79,18 +79,20 @@ export default function Home() {
   }, []);
 
   function addTag(tag: string) {
-    let content = document.querySelector("textarea");
-
+    let content = contents.body;
     if (!content) {
       return;
     }
+    let len = content.length;
 
-    let sentence = content.value;
-    let len = sentence.length;
-    let pos = content.selectionStart;
-    let last = content.selectionEnd;
+    let metaData = document.querySelector("textarea");
+    if (!metaData) {
+      return;
+    }
+    let pos = metaData.selectionStart;
+    let last = metaData.selectionEnd;
 
-    let before = sentence.substring(0, pos);
+    let before = content.substring(0, pos);
     let word = "";
     switch (tag) {
       case "bold":
@@ -137,19 +139,19 @@ export default function Home() {
     }
 
     if (last == pos) {
-      sentence = before + word + sentence.substring(last, len);
+      content = before + word + content.substring(last, len);
     } else {
-      sentence =
+      content =
         before +
         word +
-        sentence.substring(pos, last) +
+        content.substring(pos, last) +
         word +
-        sentence.substring(last, len);
+        content.substring(last, len);
     }
+    reset({ body: content });
 
-    content.value = sentence;
-    content.focus();
-    content.setSelectionRange(
+    metaData.focus();
+    metaData.setSelectionRange(
       pos + word.length + (last - pos),
       pos + word.length + (last - pos)
     );

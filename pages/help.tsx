@@ -4,7 +4,7 @@ import "zenn-content-css";
 import { url } from "../utils/config";
 import fs from "fs";
 
-export default function Help({ content }: { content: string }) {
+export default function Help() {
   return (
     <div className="absolte top-0 left-0 md:px-8 px-4 bg-[#F1F2F6]  w-screen h-screen flex flex-col">
       <Head>
@@ -31,7 +31,7 @@ export default function Help({ content }: { content: string }) {
       >
         <p
           dangerouslySetInnerHTML={{
-            __html: markdownToHtml(content) || "",
+            __html: "現在工事中です",
           }}
         ></p>
       </div>
@@ -49,7 +49,7 @@ export default function Help({ content }: { content: string }) {
   );
 }
 
-export async function getServerSideProps() {
+/*export async function getServerSideProps() {
   //const data = fs.readFileSync(url("/contents/help.md"), "utf8");
   const content = "現在工事中です";
   return {
@@ -57,4 +57,4 @@ export async function getServerSideProps() {
       content,
     },
   };
-}
+}*/
