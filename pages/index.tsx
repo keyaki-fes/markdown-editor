@@ -12,6 +12,7 @@ import {
 import { saveAs } from "file-saver";
 import { url } from "../utils/config";
 import { Dialog, Transition } from "@headlessui/react";
+import Link from "next/link";
 
 const useWindowSize = () => {
   const [size, setSize] = useState([0, 0]);
@@ -395,21 +396,21 @@ export default function Home() {
         </div>
       </div>
       <div className="flex flex-row">
-        <a
+        <Link
           href="/help"
           className="text-blue-500 hover:text-blue-600 text-xs py-2"
         >
           help
-        </a>
+        </Link>
         <div className="ml-auto py-2 text-right hidden md:block text-xs">
           Created by Koga Secondary School - The 7th Keyaki Fes IT management
           dept. View source on{" "}
-          <a
+          <Link
             href="https://github.com/keyaki-fes/markdown-editor"
             className="text-blue-500 hover:text-blue-600 hover:underline"
           >
             Github
-          </a>
+          </Link>
         </div>
       </div>
 
