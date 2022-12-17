@@ -394,15 +394,23 @@ export default function Home() {
           ></p>
         </div>
       </div>
-      <div className="py-2 text-right hidden md:block text-xs">
-        Created by Koga Secondary School - The 7th Keyaki Fes IT management
-        dept. View source on{" "}
+      <div className="flex flex-row">
         <a
-          href="https://github.com/keyaki-fes/markdown-editor"
-          className="text-blue-500 hover:text-blue-600 hover:underline"
+          href="/help"
+          className="text-blue-500 hover:text-blue-600 text-xs py-2"
         >
-          Github
+          help
         </a>
+        <div className="ml-auto py-2 text-right hidden md:block text-xs">
+          Created by Koga Secondary School - The 7th Keyaki Fes IT management
+          dept. View source on{" "}
+          <a
+            href="https://github.com/keyaki-fes/markdown-editor"
+            className="text-blue-500 hover:text-blue-600 hover:underline"
+          >
+            Github
+          </a>
+        </div>
       </div>
 
       <Transition appear show={isDownloadModalOpen} as={Fragment}>
