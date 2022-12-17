@@ -19,7 +19,7 @@ jobs:
 
       - name: Setup Node
         uses: actions/setup-node@v3
-         with:
+        with:
           node-version: ${{ matrix.node-version }}
           cache: yarn
           cache-dependency-path: ./yarn.lock
