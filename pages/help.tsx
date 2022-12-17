@@ -31,7 +31,7 @@ export default function Help({ content }: { content: string }) {
       >
         <p
           dangerouslySetInnerHTML={{
-            __html: content,
+            __html: markdownToHtml(content) || "",
           }}
         ></p>
       </div>
@@ -49,9 +49,9 @@ export default function Help({ content }: { content: string }) {
   );
 }
 
-export async function getStaticProps() {
-  const data = fs.readFileSync(url("contents/help.md"), "utf8");
-  const content = markdownToHtml(data);
+export async function getServerSideProps() {
+  //const data = fs.readFileSync(url("/contents/help.md"), "utf8");
+  const content = "現在工事中です";
   return {
     props: {
       content,
