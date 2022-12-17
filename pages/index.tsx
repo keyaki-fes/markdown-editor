@@ -2,9 +2,16 @@ import Head from "next/head";
 import { useForm } from "react-hook-form";
 import markdownToHtml from "zenn-markdown-html";
 import "zenn-content-css";
-import { useEffect, useLayoutEffect, useState, useCallback } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useState,
+  useCallback,
+  Fragment,
+} from "react";
 import { saveAs } from "file-saver";
 import { url } from "../utils/config";
+import { Dialog, Transition } from "@headlessui/react";
 
 const useWindowSize = () => {
   const [size, setSize] = useState([0, 0]);
@@ -24,6 +31,15 @@ const useWindowSize = () => {
 export default function Home() {
   const [file, setFile] = useState<null | any>(null);
   const [isPreview, setIsPreview] = useState(false);
+  let [isDownloadModalOpen, setisDownloadModalOpen] = useState(false);
+
+  function closeModal() {
+    setisDownloadModalOpen(false);
+  }
+
+  function openModal() {
+    setisDownloadModalOpen(true);
+  }
 
   const onChangeFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -46,6 +62,7 @@ export default function Home() {
 
   let contents = {
     body: watch("body"),
+    title: watch("title"),
   };
 
   useEffect(() => {
@@ -148,12 +165,25 @@ export default function Home() {
     content.value = "";
   }
 
-  async function download() {
+  async function downloadMarkdown() {
     const blob = new Blob([contents.body], {
       type: "text/markdown",
     });
-    const title = `markdown${new Date().toLocaleDateString()}`;
+    const title = contents.title
+      ? contents.title
+      : `markdown${new Date().toLocaleDateString()}`;
     saveAs(blob, `${title}.md`);
+  }
+
+  async function downloadHTML() {
+    const htmlString = markdownToHtml(contents.body);
+    const blob = new Blob([htmlString], {
+      type: "text/html",
+    });
+    const title = contents.title
+      ? contents.title
+      : `markdown${new Date().toLocaleDateString()}`;
+    saveAs(blob, `${title}.html`);
   }
 
   const [width, height] = useWindowSize();
@@ -169,7 +199,7 @@ export default function Home() {
   }
 
   return (
-    <div className="md:px-8 px-4 bg-[#F1F2F6]  w-screen h-screen flex flex-col">
+    <div className="absolte top-0 left-0 md:px-8 px-4 bg-[#F1F2F6]  w-screen h-screen flex flex-col">
       <Head>
         <title>Keyaki Fes Markdown Editor</title>
         <meta
@@ -200,7 +230,7 @@ export default function Home() {
         </label>
         <button
           onClick={() => {
-            download();
+            openModal();
           }}
           className="hidden sm:block ml-2 bg-gray-200 hover:bg-gray-300 text-sm text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
         >
@@ -230,7 +260,7 @@ export default function Home() {
         </label>
         <button
           onClick={() => {
-            download();
+            openModal();
           }}
           className="ml-2 bg-gray-200 hover:bg-gray-300 text-sm text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
         >
@@ -342,7 +372,7 @@ export default function Home() {
             <textarea
               id="body"
               spellCheck="false"
-              className="overflow-y-scroll hidden-scrollbar h-full w-full resize-none focus:outline-none bg-white w-full h-full rounded-md text-gray-900"
+              className="overflow-y-scroll hidden-scrollbar h-full w-full resize-none focus:outline-none bg-white text-gray-900"
               {...register("body")}
             ></textarea>
             <div className="text-right text-sm text-slate-300">
@@ -374,6 +404,102 @@ export default function Home() {
           Github
         </a>
       </div>
+
+      <Transition appear show={isDownloadModalOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="mx-1 text-lg font-medium leading-6 text-gray-900"
+                  >
+                    ダウンロード
+                  </Dialog.Title>
+
+                  <div className="mt-2 mx-1">
+                    <p className="text-sm text-gray-500">
+                      作成したファイルをダウンロードできます。ファイルタイプが表示されたボタンをクリックするとダウンロードが始まります。
+                    </p>
+                  </div>
+
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      placeholder="ファイル名を入力してください"
+                      {...register("title")}
+                      className="mx-1 bg-white rounded-md px-2 py-2 w-full border border-gray-200 text-sm focus:outline-none"
+                    ></input>
+                  </div>
+                  <div className="mt-2">
+                    <div
+                      className="mt-1 flex items-center rounded-md p-1.5 transition duration-100 ease-in-out hover:bg-blue-50 cursor-pointer"
+                      onClick={() => {
+                        downloadMarkdown();
+                      }}
+                    >
+                      <div className="text-sm flex h-10 w-10 shrink-0 items-center justify-center text-blue-500 font-bold bg-blue-100 rounded-lg">
+                        md
+                      </div>
+                      <div className="ml-4">
+                        <p className="text-lg font-medium text-gray-700">
+                          Markdown
+                        </p>
+                      </div>
+                    </div>
+
+                    <div
+                      className="mt-1 flex items-center rounded-md p-1.5 transition duration-100 ease-in-out hover:bg-yellow-50 cursor-pointer"
+                      onClick={() => {
+                        downloadHTML();
+                      }}
+                    >
+                      <div className="text-sm flex h-10 w-10 shrink-0 items-center justify-center text-yellow-500 font-bold bg-yellow-100 rounded-lg">
+                        html
+                      </div>
+                      <div className="ml-4">
+                        <p className="text-lg font-medium text-gray-700">
+                          HTML
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-4">
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={closeModal}
+                    >
+                      キャンセル
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
     </div>
   );
 }

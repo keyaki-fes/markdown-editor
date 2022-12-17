@@ -10,6 +10,7 @@
     "export": "next export"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.7",
     "@next/font": "^13.0.6",
     "@types/node": "18.11.10",
     "@types/react": "18.0.26",
