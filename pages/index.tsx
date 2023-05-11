@@ -270,7 +270,7 @@ export default function Home() {
           Download
         </button>
       </div>
-      <div className="lg:grid gap-6 grid-cols-2 flex-auto overflow-y-scroll pt-4 pb-2">
+      <div className="lg:grid gap-6 grid-cols-2 flex-auto overflow-y-auto pt-4 pb-2">
         <div
           className={`${
             isPreview && width < 1024 ? "hidden" : ""
@@ -375,7 +375,7 @@ export default function Home() {
             <textarea
               id="body"
               spellCheck="false"
-              className="overflow-y-scroll hidden-scrollbar h-full w-full resize-none focus:outline-none bg-white text-gray-900"
+              className="overflow-y-auto hidden-scrollbar h-full w-full resize-none focus:outline-none bg-white text-gray-900"
               {...register("body")}
             ></textarea>
             <div className="text-right text-sm text-slate-300">
@@ -388,7 +388,7 @@ export default function Home() {
         <div
           className={`${
             !isPreview && width < 1024 ? "hidden" : ""
-          } overflow-y-scroll  overflow-x-scroll znc px-6 py-10  rounded-md h-full w-full bg-white  text-gray-900`}
+          } overflow-y-auto  overflow-x-auto znc px-6 py-10  rounded-md h-full w-full bg-white  text-gray-900`}
         >
           <p
             dangerouslySetInnerHTML={{
